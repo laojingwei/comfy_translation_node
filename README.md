@@ -1,0 +1,1 @@
+# comfy_translation_node
