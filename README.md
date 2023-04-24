@@ -1,4 +1,6 @@
 # comfy_translation_node
+更新--2023 04 24
+本次更新功能无变动，只是做了一个小改动调整了节点的分组，统一放到xww-trans里，如果你之前有下载的可以不用更新，要更新的话，如果你有使用openIE.txt，请先备份openIE.txt再更新，如果没使用直接覆盖comfy_translation_node就可以了
 
 # 描述
 
