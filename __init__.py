@@ -3,6 +3,7 @@ import re
 import subprocess
 import os
 import folder_paths
+import shutil
 
 cwd = os.getcwd ()
 # TEXT = '((masterpiece:1.4, best quality)),((masterpiece, best quality)),cute little girl,loli,feel happy,graduate,Cherry blossom on both sides of the road'
@@ -13,13 +14,13 @@ def init():
     tweak_path = cwd +'\\ComfyUI\\web\\extensions\\tweak_keywords_CN2EN'
     tweak_path_bk = cwd + '\\ComfyUI\\custom_nodes\\comfy_translation_node\\tweak_keywords_CN2EN'
     if not os.path.isdir(folder_path):
-        print("----------start-------------未发现translate翻译包，正在下载。。。")
+        print("----------start-------第一次使用------未发现translate翻译包，正在下载。。。")
         subprocess.run(["pip", "install", "--target="+cwd+"\\python_embeded\\Lib\\site-packages", "translate"])
         print("-----------end------------translate下载完成---如看到黄色提示话术，说明有些依赖是已经安装过了，只要不是error均无需在意")
 
     if not os.path.isdir(tweak_path):
         print("----------start-------------未发现tweak_keywords_CN2EN文件夹，正在处理。。。")
-        os.rename(tweak_path_bk, cwd +'\\ComfyUI\\web\\extensions\\tweak_keywords_CN2EN')
+        shutil.copytree (tweak_path_bk, tweak_path)
         print("-----------end------------tweak_keywords_CN2EN文件夹处理完成--------------")
 
 
@@ -43,7 +44,6 @@ def init():
             
             if len(IEPath) < 4 or IEPath == '""':
                 return
-            print('ewrwere',SAVE == '"FALSE"' or (IEPathOld != IEPath and len(IEPathOld) > 4))
             if SAVE == '"FALSE"' or (IEPathOld != IEPath and len(IEPathOld) > 4):
                 from shutil import copyfile
                 import fileinput
@@ -272,7 +272,7 @@ class CN2ENTRANS:
     RETURN_TYPES = ("STRING",)
     FUNCTION = "text_trans"
     OUTPUT_NODE = True
-    CATEGORY = "utils"
+    CATEGORY = "xww/trans"
 
     if len(emb) > 0:
         def text_trans(self, text,language,log,transAPI,embeddings,embeddingsStrength):
@@ -294,7 +294,6 @@ class CN2ENTRANS:
                 print('no embeddings----------',text)
             return (text,)
 
-
 class TWEAKKEYWORDS:
     @classmethod
     def INPUT_TYPES(s):
@@ -306,7 +305,7 @@ class TWEAKKEYWORDS:
     FUNCTION = "tweak_keywords"
     OUTPUT_NODE = True
 
-    CATEGORY = "utils"
+    CATEGORY = "xww/trans"
 
     def tweak_keywords(self, text):   
         return {"ui": { "text": text }, "result": (text,)}

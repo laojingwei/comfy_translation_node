@@ -2,7 +2,7 @@ import { app } from "/scripts/app.js";
 import { ComfyWidgets } from "/scripts/widgets.js";
 
 app.registerExtension({
-	name: "pysssss.Tweak Keywords CN2EN",
+	name: "xww.Tweak Keywords CN2EN",
 	async beforeRegisterNodeDef(nodeType, nodeData, app) {
 		if (nodeData.name === "Tweak Keywords CN2EN") {
 			const onNodeCreated = nodeType.prototype.onNodeCreated;
@@ -10,7 +10,6 @@ app.registerExtension({
 				const r = onNodeCreated?.apply(this, arguments);
 
 				const w = ComfyWidgets["STRING"](this, "text", ["STRING", { multiline: true }], app).widget;
-				w.inputEl.style.opacity = 0.6;
 
 				return r;
 			};
