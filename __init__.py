@@ -4,6 +4,7 @@ import subprocess
 import os
 import folder_paths
 import shutil
+import sys
 
 cwd = os.getcwd ()
 # TEXT = '((masterpiece:1.4, best quality)),((masterpiece, best quality)),cute little girl,loli,feel happy,graduate,Cherry blossom on both sides of the road'
@@ -14,8 +15,10 @@ def init():
     tweak_path = cwd +'\\ComfyUI\\web\\extensions\\tweak_keywords_CN2EN'
     tweak_path_bk = cwd + '\\ComfyUI\\custom_nodes\\comfy_translation_node\\tweak_keywords_CN2EN'
     if not os.path.isdir(folder_path):
+        # 使用sys.executable来获取Python解释器的路径，然后在前面加上-m参数，防止有些人的电脑pip路径不是全局导致没法使用问题
         print("----------start-------第一次使用------未发现translate翻译包，正在下载。。。")
-        subprocess.run(["pip", "install", "--target="+cwd+"\\python_embeded\\Lib\\site-packages", "translate"])
+        # os.system("pip install --target="+cwd+"\\python_embeded\\Lib\\site-packages"+" translate")
+        subprocess.run([sys.executable, "-m", "pip", "install", "--target="+cwd+"\\python_embeded\\Lib\\site-packages", "translate"])
         print("-----------end------------translate下载完成---如看到黄色提示话术，说明有些依赖是已经安装过了，只要不是error均无需在意")
 
     if not os.path.isdir(tweak_path):
