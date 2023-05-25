@@ -311,7 +311,7 @@ class TWEAKKEYWORDS:
     CATEGORY = "xww/trans"
 
     def tweak_keywords(self, text):   
-        return {"ui": { "text": text }, "result": (text,)}
+        return {"ui": { "text": [text] }, "result": (text,)}
 
 NODE_CLASS_MAPPINGS = {
     "CLIP Text Encode CN2EN": CN2ENTRANS,
